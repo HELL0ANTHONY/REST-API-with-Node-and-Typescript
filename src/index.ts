@@ -1,10 +1,10 @@
-import { database } from "./database/";
 import app from "./app";
+import sequelize from "./database";
 
-const PORT: number = 3000;
+const PORT: number = 3001;
 
-database.sync({ force: true }).then(_ => {
-  app.listen(PORT, () => {
-    console.log("server on PORT:", PORT);
+sequelize.sync({ force: true }).then((): void => {
+  app.listen((): void => {
+    console.log("server running at PORT:", PORT);
   });
 });
