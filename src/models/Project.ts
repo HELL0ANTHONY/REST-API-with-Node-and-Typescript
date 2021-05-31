@@ -1,53 +1,46 @@
-import { Model, DataTypes as type } from "sequelize";
-import sequelize from "../database";
+import { Model, DataTypes as Type } from "sequelize";
+import { sequelize } from "../database";
+import Task from "./Task";
 
 interface ProjectAttributes {
   id: number;
   name: string;
   priority: number;
-  deliveryDate: string;
+  deliveryDate: Date;
   description: string | null;
 }
-class Project extends Model<ProjectAttributes>
-  implements ProjectAttributes {
-  public id!: number;
-  public name!: string;
-  public priority!: number;
-  public deliveryDate!: string;
-  public description!: string | null;
 
-  public static associations: {
-    // projects: Association<User, Project>;
-  };
-};
+interface ProjectInstance
+  extends Model<ProjectAttributes>,
+  ProjectAttributes { }
 
-Project.init(
-  {
-    id: {
-      type: type.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-      allowNull: false
-    },
-    name: {
-      type: type.STRING,
-      allowNull: false,
-    },
-    priority: {
-      type: type.STRING,
-      allowNull: false,
-    },
-    description: {
-      type: type.STRING,
-      allowNull: true
-    },
-    deliveryDate: {
-      type: type.STRING,
-      allowNull: false
-    }
+const Project = sequelize.define<ProjectInstance>("project", {
+  id: {
+    type: Type.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
   },
-  {
-    sequelize,
-    tableName: "projects",
+  name: {
+    type: Type.STRING,
+    allowNull: false,
+  },
+  priority: {
+    type: Type.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: Type.STRING,
+    allowNull: true
+  },
+  deliveryDate: {
+    type: Type.DATE,
+    allowNull: false
   }
-);
+}, {
+  timestamps: false
+});
+
+Project.hasMany(Task);
+Task.belongsTo(Project);
+
+export default Project;

@@ -1,5 +1,5 @@
-import { Model, DataTypes as type } from "sequelize";
-import sequelize from "../database";
+import { Model, DataTypes as Type } from "sequelize";
+import { sequelize } from "../database";
 
 interface TaskAttributes {
   id: number;
@@ -8,37 +8,31 @@ interface TaskAttributes {
   done: boolean;
 }
 
-class Task extends Model<TaskAttributes>
-  implements TaskAttributes {
-  public id!: number;
-  public name!: string;
-  public projectId!: number;
-  public done!: boolean;
-}
+interface TaskInstance
+  extends Model<TaskAttributes>,
+  TaskAttributes { }
 
-Task.init(
-  {
-    id: {
-      type: type.INTEGER,
-      autoIncrement: true,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: type.STRING,
-      allowNull: false
-    },
-    projectId: {
-      type: type.INTEGER,
-      allowNull: false
-    },
-    done: {
-      type: type.BOOLEAN,
-      allowNull: false
-    }
+const Task = sequelize.define<TaskInstance>("task", {
+  id: {
+    type: Type.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true
   },
-  {
-    sequelize,
-    tableName: "tasks"
+  name: {
+    type: Type.STRING,
+    allowNull: false
+  },
+  projectId: {
+    type: Type.INTEGER,
+    allowNull: false
+  },
+  done: {
+    type: Type.BOOLEAN,
+    allowNull: false
   }
-);
+}, {
+  timestamps: false
+});
+
+export default Task;

@@ -3,9 +3,17 @@ import dotenv from "dotenv";
 dotenv.config();
 const { DB_NAME, DB_USER, DB_PASS, DB_HOST } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}`, {
+export const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}`, {
   logging: false,
   native: false
 });
 
-export default sequelize;
+async function testing() {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:');
+  }
+}
+testing();

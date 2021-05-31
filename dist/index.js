@@ -4,10 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
-const database_1 = __importDefault(require("./database"));
+const database_1 = require("./database");
 const PORT = 3001;
-database_1.default.sync({ force: true }).then(() => {
-    app_1.default.listen(() => {
+database_1.sequelize.sync({ force: true })
+    .then(() => {
+    app_1.default.listen(PORT, () => {
         console.log("server running at PORT:", PORT);
     });
 });

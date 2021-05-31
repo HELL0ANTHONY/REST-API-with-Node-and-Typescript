@@ -1,6 +1,8 @@
 import Routes from "express";
-const routes = Routes();
+import createProject from "../controllers/projects.controller";
 
+const router = Routes();
 
+router.post("/", createProject);
 
-export default routes;
+export default router;

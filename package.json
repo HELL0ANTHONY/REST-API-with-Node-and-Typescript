@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "compile": "tsc",
+    "start": "nodemon dist/index.js",
+    "build": "tsc --w",
     "dev": "concurrently \"tsc --watch\" \"nodemon dist/index.js\""
   },
   "repository": {

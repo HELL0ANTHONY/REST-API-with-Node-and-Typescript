@@ -4,16 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-const database_1 = __importDefault(require("../database"));
-class Project extends sequelize_1.Model {
-}
-;
-Project.init({
+const database_1 = require("../database");
+const Task_1 = __importDefault(require("./Task"));
+const Project = database_1.sequelize.define("project", {
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        allowNull: false
     },
     name: {
         type: sequelize_1.DataTypes.STRING,
@@ -28,10 +25,12 @@ Project.init({
         allowNull: true
     },
     deliveryDate: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.DATE,
         allowNull: false
     }
 }, {
-    sequelize: database_1.default,
-    tableName: "projects",
+    timestamps: false
 });
+Project.hasMany(Task_1.default);
+Task_1.default.belongsTo(Project);
+exports.default = Project;
