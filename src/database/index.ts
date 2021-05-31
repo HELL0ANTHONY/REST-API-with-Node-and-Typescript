@@ -8,12 +8,12 @@ export const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASS}@${DB_HO
   native: false
 });
 
-async function testing() {
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:');
-  }
-}
-testing();
+// async function testing() {
+//   try {
+//     await sequelize.authenticate();
+//     console.log('Connection has been established successfully.');
+//   } catch (error) {
+//     console.error('Unable to connect to the database:');
+//   }
+// }
+// testing();

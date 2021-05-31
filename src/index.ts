@@ -3,7 +3,7 @@ import { sequelize } from "./database";
 
 const PORT: number = 3001;
 
-sequelize.sync({ force: true })
+sequelize.sync({ force: false })
   .then((): void => {
     app.listen(PORT, (): void => {
       console.log("server running at PORT:", PORT);
