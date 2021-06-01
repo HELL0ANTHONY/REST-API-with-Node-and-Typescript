@@ -19,7 +19,8 @@ const Task = database_1.sequelize.define("task", {
     },
     done: {
         type: sequelize_1.DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
     }
 }, {
     timestamps: false

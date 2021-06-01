@@ -2,10 +2,10 @@ import { Model, DataTypes as Type } from "sequelize";
 import { sequelize } from "../database";
 
 interface TaskAttributes {
-  id: number;
+  id?: number;
   name: string;
   projectId: number;
-  done: boolean;
+  done?: boolean;
 }
 
 interface TaskInstance
@@ -29,7 +29,8 @@ const Task = sequelize.define<TaskInstance>("task", {
   },
   done: {
     type: Type.BOOLEAN,
-    allowNull: false
+    allowNull: false,
+    defaultValue: false
   }
 }, {
   timestamps: false

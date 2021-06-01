@@ -1,22 +1,13 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateProject = exports.deleteProject = exports.getOneProject = exports.getProjects = exports.createProject = void 0;
 const Project_1 = __importDefault(require("../models/Project"));
-const createProject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const createProject = async (req, res, next) => {
     try {
-        const newProject = yield Project_1.default.create(req.body);
+        const newProject = await Project_1.default.create(req.body);
         return res.json({
             message: "Project was created successfully",
             newProject
@@ -28,11 +19,11 @@ const createProject = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             data: {}
         });
     }
-});
+};
 exports.createProject = createProject;
-const getProjects = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getProjects = async (req, res, next) => {
     try {
-        const projects = yield Project_1.default.findAll();
+        const projects = await Project_1.default.findAll();
         return res.json({
             data: projects
         });
@@ -43,12 +34,12 @@ const getProjects = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
             data: {}
         });
     }
-});
+};
 exports.getProjects = getProjects;
-const getOneProject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getOneProject = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const project = yield Project_1.default.findOne({
+        const project = await Project_1.default.findOne({
             where: {
                 id
             }
@@ -66,12 +57,12 @@ const getOneProject = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     catch (error) {
         console.log(error);
     }
-});
+};
 exports.getOneProject = getOneProject;
-const deleteProject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteProject = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const rowsAffected = yield Project_1.default.destroy({
+        const rowsAffected = await Project_1.default.destroy({
             where: {
                 id
             }
@@ -87,20 +78,20 @@ const deleteProject = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     catch (error) {
         console.log(error);
     }
-});
+};
 exports.deleteProject = deleteProject;
-const updateProject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const updateProject = async (req, res, next) => {
     try {
         const id = req.params.id;
         const dataToUpdate = req.body;
-        const record = yield Project_1.default.findOne({
+        const record = await Project_1.default.findOne({
             where: {
                 id
             }
         });
         if (!record)
             throw new Error("No record found");
-        const recordUpdated = yield record.update(dataToUpdate);
+        const recordUpdated = await record.update(dataToUpdate);
         return res.json({
             message: "Data updated successfully",
             data: recordUpdated
@@ -109,5 +100,5 @@ const updateProject = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     catch (error) {
         console.error(error);
     }
-});
+};
 exports.updateProject = updateProject;

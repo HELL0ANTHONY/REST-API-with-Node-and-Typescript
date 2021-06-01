@@ -100,9 +100,9 @@ export const updateProject = async (
   next: NextFunction
 ): Promise<Response | undefined> => {
   try {
-    const id: string = req.params.id;
+    const id: string                 = req.params.id;
     const dataToUpdate: DataToUpdate = req.body;
-    const record: any = await Project.findOne({
+    const record: any                = await Project.findOne({
       where: {
         id
       }
@@ -111,7 +111,7 @@ export const updateProject = async (
     const recordUpdated: object = await record.update(dataToUpdate);
     return res.json({
       message: "Data updated successfully",
-      data: recordUpdated
+      data   : recordUpdated
     });
   } catch (error) {
     console.error(error)
