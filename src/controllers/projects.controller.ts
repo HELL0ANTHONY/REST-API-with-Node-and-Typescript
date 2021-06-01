@@ -76,17 +76,14 @@ export const deleteProject = async (
         id
       }
     });
-
     if (rowsAffected) return res.json({
       message: `Project deleted successfully.Rows affected ${rowsAffected}`
     });
-
     return res.json({
       message: `The Project with id: ${id} does not exists`,
     });
   } catch (error) {
     console.log(error);
-
   }
 };
 
@@ -105,17 +102,13 @@ export const updateProject = async (
   try {
     const id: string = req.params.id;
     const dataToUpdate: DataToUpdate = req.body;
-
     const record: any = await Project.findOne({
       where: {
         id
       }
     });
-
     if (!record) throw new Error("No record found");
-
     const recordUpdated: object = await record.update(dataToUpdate);
-
     return res.json({
       message: "Data updated successfully",
       data: recordUpdated
